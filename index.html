@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# Backend Learning Roadmap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #7f8c8d;
+        }
+
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .phase {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 6px solid #3498db;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #f39c12, #e74c3c);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .phase:hover::before {
+            opacity: 1;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .phase-number {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .phase-title {
+            flex: 1;
+        }
+
+        .phase-title h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .phase-duration {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(243, 156, 18, 0.3);
+        }
+
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .topic {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #ecf0f1;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .topic:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.2);
+        }
+
+        .topic h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+        }
+
+        .subtopics {
+            list-style: none;
+        }
+
+        .subtopics li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+            position: relative;
+            padding-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .subtopics li:last-child {
+            border-bottom: none;
+        }
+
+        .subtopics li:hover {
+            background: #f8f9fa;
+            padding-left: 25px;
+        }
+
+        .subtopics li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .tips {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
+        }
+
+        .tips h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .tips-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tips ul {
+            list-style: none;
+        }
+
+        .tips li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .tips li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #fff;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 6px;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 3px;
+            transition: width 2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phase {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .phase:nth-child(1) { animation-delay: 0.1s; }
+        .phase:nth-child(2) { animation-delay: 0.2s; }
+        .phase:nth-child(3) { animation-delay: 0.3s; }
+        .phase:nth-child(4) { animation-delay: 0.4s; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .topics {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .phase-number {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 C# Backend Learning Roadmap</h1>
+            <p>Lộ trình học lập trình C# cơ bản - Nền tảng vững chắc cho Backend Developer</p>
+        </div>
+
+        <div class="roadmap">
+            <!-- Phase 1 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">1</div>
+                    <div class="phase-title">
+                        <h2>Cú pháp C# và Nền tảng lập trình</h2>
+                    </div>
+                    <div class="phase-duration">1-2 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">🎯</span>Bắt đầu với C# và .NET</h3>
+                        <ul class="subtopics">
+                            <li>Giới thiệu .NET và C#</li>
+                            <li>Thiết lập môi trường (Visual Studio)</li>
+                            <li>Chương trình "Hello World" đầu tiên</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">📊</span>Biến, Kiểu dữ liệu và Toán tử</h3>
+                        <ul class="subtopics">
+                            <li>Biến và hằng số</li>
+                            <li>Kiểu dữ liệu cơ bản (int, string, bool, ...)</li>
+                            <li>Chuyển đổi kiểu dữ liệu</li>
+                            <li>Toán tử số học, logic, so sánh</li>
+                            <li>Console Input/Output</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔄</span>Cấu trúc điều khiển</h3>
+                        <ul class="subtopics">
+                            <li>Câu lệnh điều kiện (if, else, switch)</li>
+                            <li>Vòng lặp (for, while, do-while, foreach)</li>
+                            <li>Câu lệnh nhảy (break, continue, return)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">⚙️</span>Phương thức (Methods)</h3>
+                        <ul class="subtopics">
+                            <li>Khai báo và gọi phương thức</li>
+                            <li>Tham số và giá trị trả về</li>
+                            <li>Truyền tham số (ref, out)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">2</div>
+                    <div class="phase-title">
+                        <h2>Lập trình hướng đối tượng (OOP)</h2>
+                    </div>
+                    <div class="phase-duration">2-3 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">🏗️</span>Class và Đối tượng</h3>
+                        <ul class="subtopics">
+                            <li>Định nghĩa class và tạo đối tượng</li>
+                            <li>Thuộc tính (Properties) - get, set</li>
+                            <li>Phương thức (Methods)</li>
+                            <li>Hàm tạo (Constructors)</li>
+                            <li>Từ khóa this</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔒</span>Đóng gói (Encapsulation)</h3>
+                        <ul class="subtopics">
+                            <li>Access Modifiers (public, private, protected)</li>
+                            <li>Ẩn giấu chi tiết triển khai</li>
+                            <li>Phơi bày giao diện cần thiết</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔗</span>Kế thừa (Inheritance)</h3>
+                        <ul class="subtopics">
+                            <li>Lớp cơ sở và lớp dẫn xuất</li>
+                            <li>Từ khóa base</li>
+                            <li>virtual, override</li>
+                            <li>sealed class</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🎭</span>Đa hình & Trừu tượng</h3>
+                        <ul class="subtopics">
+                            <li>Method Overloading</li>
+                            <li>Method Overriding</li>
+                            <li>Abstract Class và Methods</li>
+                            <li>Interface</li>
+                            <li>So sánh Abstract vs Interface</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">3</div>
+                    <div class="phase-title">
+                        <h2>Collection, Exception & LINQ</h2>
+                    </div>
+                    <div class="phase-duration">2-3 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">📦</span>Collection</h3>
+                        <ul class="subtopics">
+                            <li>Arrays (mảng một chiều, đa chiều)</li>
+                            <li>List&lt;T&gt; (Add, Remove, Find, ForEach)</li>
+                            <li>Dictionary&lt;TKey, TValue&gt;</li>
+                            <li>HashSet&lt;T&gt;</li>
+                            <li>Stack&lt;T&gt; và Queue&lt;T&gt;</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">⚠️</span>Xử lý ngoại lệ</h3>
+                        <ul class="subtopics">
+                            <li>Khái niệm về Exception</li>
+                            <li>try-catch-finally block</li>
+                            <li>throw statement</li>
+                            <li>Các loại Exception phổ biến</li>
+                            <li>Custom Exceptions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔍</span>LINQ (Language Integrated Query)</h3>
+                        <ul class="subtopics">
+                            <li>Giới thiệu LINQ và lợi ích</li>
+                            <li>LINQ to Objects</li>
+                            <li>Các toán tử: Where, Select, OrderBy</li>
+                            <li>GroupBy, Count, Sum, Min, Max</li>
+                            <li>Join, GroupJoin</li>
+                            <li>Query Syntax vs Method Syntax</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">4</div>
+                    <div class="phase-title">
+                        <h2>Lập trình bất đồng bộ (Async)</h2>
+                    </div>
+                    <div class="phase-duration">1-2 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">⚡</span>Async/Await Programming</h3>
+                        <ul class="subtopics">
+                            <li>Khái niệm đồng bộ vs bất đồng bộ</li>
+                            <li>Task và Task&lt;TResult&gt;</li>
+                            <li>Từ khóa async và await</li>
+                            <li>ConfigureAwait(false), tránh deadlock</li>
+                            <li>Task.WhenAll, Task.WhenAny</li>
+                            <li>Async patterns cơ bản</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips">
+            <h3><span class="tips-icon">💡</span>Mẹo học hiệu quả</h3>
+            <ul>
+                <li>Đọc tài liệu Microsoft Learn và xem video hướng dẫn</li>
+                <li>Thực hành sau mỗi khái niệm - Đừng chỉ đọc!</li>
+                <li>Giải bài tập trên HackerRank, LeetCode, CSharpExercises</li>
+                <li>Tạo dự án console nhỏ: quản lý sách, hệ thống ngân hàng</li>
+                <li>Sử dụng Debugger trong Visual Studio</li>
+                <li>Tạo ứng dụng thực tế để áp dụng kiến thức</li>
+            </ul>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%" id="progressFill"></div>
+        </div>
+    </div>
+
+    <script>
+        // Animate progress bar
+        setTimeout(() => {
+            document.getElementById('progressFill').style.width = '100%';
+        }, 1000);
+
+        // Add click interaction to phases
+        document.querySelectorAll('.phase').forEach(phase => {
+            phase.addEventListener('click', function() {
+                this.style.transform = this.style.transform === 'scale(1.02)' ? 'scale(1)' : 'scale(1.02)';
+            });
+        });
+
+        // Add hover effect to topics
+        document.querySelectorAll('.topic').forEach(topic => {
+            topic.addEventListener('mouseenter', function() {
+                this.style.backgroundColor = '#f8f9fa';
+            });
+            
+            topic.addEventListener('mouseleave', function() {
+                this.style.backgroundColor = 'white';
+            });
+        });
+    </script>
+</body>
+</html>
