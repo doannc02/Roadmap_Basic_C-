@@ -17,6 +17,8 @@
             min-height: 100vh;
             padding: 20px;
             color: #333;
+            display: flex; /* Thêm để footer luôn ở cuối trang */
+            flex-direction: column; /* Thêm để footer luôn ở cuối trang */
         }
 
         .container {
@@ -28,6 +30,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             position: relative; /* Thêm để định vị nút Next */
+            flex-grow: 1; /* Thêm để container chiếm hết không gian còn lại */
         }
 
         .header {
@@ -289,6 +292,16 @@
             transition: width 2s ease;
         }
 
+        .footer-page-number {
+            text-align: center;
+            margin-top: 20px; /* Khoảng cách từ nội dung trên */
+            padding: 10px 0;
+            color: #ecf0f1; /* Màu chữ nhạt để phù hợp với nền */
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -539,6 +552,10 @@
         <div class="progress-bar">
             <div class="progress-fill" style="width: 0%" id="progressFill"></div>
         </div>
+    </div>
+
+    <div class="footer-page-number">
+        Page 1
     </div>
 
     <script>
