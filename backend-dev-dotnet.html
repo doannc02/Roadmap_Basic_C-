@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C# Web Backend Development Roadmap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(15px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .prerequisite {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .prerequisite h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prerequisite-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .roadmap {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .phase {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb, #f5576c);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .phase:hover::before {
+            transform: scaleX(1);
+        }
+
+        .phase:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .phase-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.4em;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .phase-title {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .phase-title h2 {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .phase-subtitle {
+            color: #6c757d;
+            font-size: 1.1em;
+        }
+
+        .phase-duration {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.95em;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .topic {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .topic:hover::before {
+            transform: scaleX(1);
+        }
+
+        .topic:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+        }
+
+        .topic h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .topic-icon {
+            width: 32px;
+            height: 32px;
+            margin-right: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1em;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .subtopics {
+            list-style: none;
+        }
+
+        .subtopics li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f3f4;
+            position: relative;
+            padding-left: 25px;
+            transition: all 0.3s ease;
+            color: #495057;
+        }
+
+        .subtopics li:last-child {
+            border-bottom: none;
+        }
+
+        .subtopics li:hover {
+            background: #f8f9fa;
+            padding-left: 30px;
+            color: #667eea;
+        }
+
+        .subtopics li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .difficulty {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 15px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .difficulty-basic {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .project-suggestions {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            color: #2c3e50;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(255, 154, 158, 0.3);
+        }
+
+        .project-suggestions h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            color: #2c3e50;
+        }
+
+        .project-icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 12px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .project-card p {
+            color: #6c757d;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .learning-path {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .learning-path h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .learning-path-icon {
+            width: 36px;
+            height: 36px;
+            margin-right: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .path-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .step h4 {
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .step p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phase {
+            animation: slideInUp 0.7s ease forwards;
+        }
+
+        .phase:nth-child(1) { animation-delay: 0.1s; }
+        .phase:nth-child(2) { animation-delay: 0.2s; }
+        .phase:nth-child(3) { animation-delay: 0.3s; }
+        .phase:nth-child(4) { animation-delay: 0.4s; }
+        .phase:nth-child(5) { animation-delay: 0.5s; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .topics {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .phase-title {
+                min-width: auto;
+            }
+            
+            .projects-grid,
+            .path-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 C# Web Backend Development</h1>
+            <p>Roadmap chuyên sâu: ASP.NET Core, Entity Framework, PostgreSQL và Architecture Patterns</p>
+        </div>
+
+        <div class="prerequisite">
+            <h3><span class="prerequisite-icon">✅</span>Tiên quyết: Đã hoàn thành C# cơ bản</h3>
+            <p>OOP, Collections, LINQ, Exception Handling, Async/Await Programming</p>
+        </div>
+
+        <div class="roadmap">
+            <!-- Phase 1: ASP.NET Core Fundamentals -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">1</div>
+                    <div class="phase-title">
+                        <h2>ASP.NET Core Fundamentals</h2>
+                        <p class="phase-subtitle">Nền tảng Web API và MVC</p>
+                    </div>
+                    <div class="phase-duration">3-4 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">🌐</span>ASP.NET Core Basics</h3>
+                        <ul class="subtopics">
+                            <li>Kiến trúc ASP.NET Core</li>
+                            <li>Dependency Injection (DI)</li>
+                            <li>Middleware Pipeline</li>
+                            <li>Configuration (appsettings.json)</li>
+                            <li>Environment và Logging</li>
+                        </ul>
+                        <div class="difficulty difficulty-basic">Cơ bản</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">📡</span>Web API Development</h3>
+                        <ul class="subtopics">
+                            <li>Controller và Action Methods</li>
+                            <li>HTTP Methods (GET, POST, PUT, DELETE)</li>
+                            <li>Model Binding và Validation</li>
+                            <li>Response Types (ActionResult)</li>
+                            <li>API Versioning</li>
+                        </ul>
+                        <div class="difficulty difficulty-basic">Cơ bản</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔧</span>Request/Response Pipeline</h3>
+                        <ul class="subtopics">
+                            <li>HTTP Context</li>
+                            <li>Request và Response Objects</li>
+                            <li>Headers và Status Codes</li>
+                            <li>Content Negotiation</li>
+                            <li>CORS Configuration</li>
+                        </ul>
+                        <div class="difficulty difficulty-basic">Cơ bản</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">📋</span>Data Validation & Formatting</h3>
+                        <ul class="subtopics">
+                            <li>Data Annotations</li>
+                            <li>Custom Validation Attributes</li>
+                            <li>Model State Validation</li>
+                            <li>JSON Serialization</li>
+                            <li>Error Handling & Exception Filters</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2: Entity Framework Core & PostgreSQL -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">2</div>
+                    <div class="phase-title">
+                        <h2>Entity Framework Core & PostgreSQL</h2>
+                        <p class="phase-subtitle">ORM và Database Management</p>
+                    </div>
+                    <div class="phase-duration">4-5 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">🗃️</span>PostgreSQL Fundamentals</h3>
+                        <ul class="subtopics">
+                            <li>Cài đặt PostgreSQL & pgAdmin</li>
+                            <li>SQL cơ bản (CREATE, SELECT, INSERT, UPDATE, DELETE)</li>
+                            <li>Indexes và Performance</li>
+                            <li>Constraints và Relationships</li>
+                            <li>Stored Procedures & Functions</li>
+                        </ul>
+                        <div class="difficulty difficulty-basic">Cơ bản</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔗</span>Entity Framework Core</h3>
+                        <ul class="subtopics">
+                            <li>DbContext và DbSet</li>
+                            <li>Entity Configuration</li>
+                            <li>Code First vs Database First</li>
+                            <li>Migrations</li>
+                            <li>Connection Strings</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔀</span>Relationships & Querying</h3>
+                        <ul class="subtopics">
+                            <li>One-to-One, One-to-Many, Many-to-Many</li>
+                            <li>Navigation Properties</li>
+                            <li>Eager Loading (Include)</li>
+                            <li>Lazy Loading</li>
+                            <li>Explicit Loading</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">⚡</span>Advanced EF Core</h3>
+                        <ul class="subtopics">
+                            <li>Change Tracking</li>
+                            <li>Concurrency Control</li>
+                            <li>Raw SQL Queries</li>
+                            <li>Bulk Operations</li>
+                            <li>Performance Optimization</li>
+                        </ul>
+                        <div class="difficulty difficulty-advanced">Nâng cao</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Advanced Backend Concepts -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">3</div>
+                    <div class="phase-title">
+                        <h2>Advanced Backend Concepts</h2>
+                        <p class="phase-subtitle">Security, Authentication & Authorization</p>
+                    </div>
+                    <div class="phase-duration">3-4 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔐</span>Authentication & Authorization</h3>
+                        <ul class="subtopics">
+                            <li>JWT (JSON Web Tokens)</li>
+                            <li>ASP.NET Core Identity</li>
+                            <li>Role-based Authorization</li>
+                            <li>Claims-based Authorization</li>
+                            <li>OAuth 2.0 & OpenID Connect</li>
+                        </ul>
+                        <div class="difficulty difficulty-advanced">Nâng cao</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🛡️</span>Security Best Practices</h3>
+                        <ul class="subtopics">
+                            <li>HTTPS Configuration</li>
+                            <li>Data Protection</li>
+                            <li>Input Validation & Sanitization</li>
+                            <li>SQL Injection Prevention</li>
+                            <li>XSS Protection</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">💾</span>Caching Strategies</h3>
+                        <ul class="subtopics">
+                            <li>Memory Cache</li>
+                            <li>Distributed Cache (Redis)</li>
+                            <li>Response Caching</li>
+                            <li>Cache Invalidation</li>
+                            <li>Performance Monitoring</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">📊</span>API Documentation & Testing</h3>
+                        <ul class="subtopics">
+                            <li>Swagger/OpenAPI</li>
+                            <li>Unit Testing (xUnit)</li>
+                            <li>Integration Testing</li>
+                            <li>API Testing (Postman)</li>
+                            <li>Test-Driven Development (TDD)</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Architecture & Design Patterns -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">4</div>
+                    <div class="phase-title">
+                        <h2>Architecture & Design Patterns</h2>
+                        <p class="phase-subtitle">Clean Architecture, Repository Pattern, CQRS</p>
+                    </div>
+                    <div class="phase-duration">4-5 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">🏗️</span>Clean Architecture</h3>
+                        <ul class="subtopics">
+                            <li>Domain Layer</li>
+                            <li>Application Layer</li>
+                            <li>Infrastructure Layer</li>
+                            <li>Presentation Layer</li>
+                            <li>Dependency Inversion</li>
+                        </ul>
+                        <div class="difficulty difficulty-advanced">Nâng cao</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">📚</span>Repository & Unit of Work</h3>
+                        <ul class="subtopics">
+                            <li>Generic Repository Pattern</li>
+                            <li>Unit of Work Pattern</li>
+                            <li>Repository với EF Core</li>
+                            <li>Specification Pattern</li>
+                            <li>Data Access Abstraction</li>
+                        </ul>
+                        <div class="difficulty difficulty-advanced">Nâng cao</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">⚙️</span>CQRS & MediatR</h3>
+                        <ul class="subtopics">
+                            <li>Command Query Responsibility Segregation</li>
+                            <li>MediatR Pattern</li>
+                            <li>Commands và Queries</li>
+                            <li>Handlers và Behaviors</li>
+                            <li>Event Sourcing (cơ bản)</li>
+                        </ul>
+                        <div class="difficulty difficulty-advanced">Nâng cao</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🎭</span>Domain-Driven Design</h3>
+                        <ul class="subtopics">
+                            <li>Domain Entities</li>
+                            <li>Value Objects</li>
+                            <li>Domain Services</li>
+                            <li>Aggregates</li>
+                            <li>Bounded Contexts</li>
+                        </ul>
+                        <div class="difficulty difficulty-advanced">Nâng cao</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5: DevOps & Production -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">5</div>
+                    <div class="phase-title">
+                        <h2>DevOps & Production Ready</h2>
+                        <p class="phase-subtitle">Deployment, Monitoring & Scalability</p>
+                    </div>
+                    <div class="phase-duration">3-4 tuần</div>
+                </div>
+                
+                <div class="topics">
+                    <div class="topic">
+                        <h3><span class="topic-icon">🐳</span>Containerization</h3>
+                        <ul class="subtopics">
+                            <li>Docker Fundamentals</li>
+                            <li>Dockerfile cho .NET</li>
+                            <li>Docker Compose</li>
+                            <li>Multi-stage Builds</li>
+                            <li>Container Orchestration</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">☁️</span>Cloud Deployment</h3>
+                        <ul class="subtopics">
+                            <li>Azure App Service</li>
+                            <li>AWS EC2/ECS</li>
+                            <li>Database as a Service</li>
+                            <li>CI/CD Pipelines</li>
+                            <li>Environment Configuration</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">📈</span>Monitoring & Logging</h3>
+                        <ul class="subtopics">
+                            <li>Application Insights</li>
+                            <li>Structured Logging (Serilog)</li>
+                            <li>Health Checks</li>
+                            <li>Performance Metrics</li>
+                            <li>Error Tracking</li>
+                        </ul>
+                        <div class="difficulty difficulty-intermediate">Trung bình</div>
+                    </div>
+                    
+                    <div class="topic">
+                        <h3><span class="topic-icon">🔧</span>Performance & Scalability</h3>
+                        <ul class="subtopics">
+                            <li>Load Balancing</li>
+                            <li>Database Optimization</li>
+                            <li>Horizontal Scaling</li>
+                            <li>Message Queues</li>
+                            <li>Background Services</li>
+                        </ul>
+                        <div class="difficulty difficulty-advanced">Nâng cao</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="project-suggestions">
+            <h3><span class="project-icon">💡</span>Dự án thực hành từ cơ bản đến nâng cao</h3>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h4>🛒 E-commerce API</h4>
+                    <p>Xây dựng API cho hệ thống thương mại điện tử với products, orders, users, và payment integration.</p>
+                </div>
+                <div class="project-card">
+                    <h4>📚 Library Management System</h4>
+                    <p>Quản lý thư viện với books, authors, borrowers, và tracking system sử dụng Clean Architecture.</p>
+                </div>
+                <div

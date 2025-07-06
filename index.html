@@ -27,11 +27,13 @@
             padding: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            position: relative; /* Thêm để định vị nút Next */
         }
 
         .header {
             text-align: center;
             margin-bottom: 40px;
+            position: relative; /* Thêm để định vị nút Next */
         }
 
         .header h1 {
@@ -44,6 +46,29 @@
         .header p {
             font-size: 1.2em;
             color: #7f8c8d;
+        }
+
+        /* CSS cho nút Next */
+        .next-button {
+            position: absolute; /* Vị trí tuyệt đối */
+            top: 20px; /* Cách trên 20px */
+            right: 20px; /* Cách phải 20px */
+            background-color: #2ecc71; /* Màu xanh lá cây */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none; /* Bỏ gạch chân link */
+            font-weight: bold;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+            z-index: 10; /* Đảm bảo nút nằm trên các yếu tố khác */
+        }
+
+        .next-button:hover {
+            background-color: #27ae60; /* Màu đậm hơn khi hover */
+            transform: translateY(-2px); /* Hiệu ứng nhấc nhẹ */
         }
 
         .roadmap {
@@ -305,18 +330,26 @@
             .phase-number {
                 margin-bottom: 10px;
             }
+
+            .next-button {
+                position: static; /* Thay đổi vị trí cho mobile */
+                display: block; /* Hiển thị dưới dạng block để chiếm hết chiều rộng */
+                width: fit-content;
+                margin: 20px auto 0; /* Căn giữa */
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="backend-dev-dotnet.html" class="next-button">Next Page &rarr;</a> 
+
         <div class="header">
             <h1>🚀 C# Backend Learning Roadmap</h1>
             <p>Lộ trình học lập trình C# cơ bản - Nền tảng vững chắc cho Backend Developer</p>
         </div>
 
         <div class="roadmap">
-            <!-- Phase 1 -->
             <div class="phase">
                 <div class="phase-header">
                     <div class="phase-number">1</div>
@@ -367,7 +400,6 @@
                 </div>
             </div>
 
-            <!-- Phase 2 -->
             <div class="phase">
                 <div class="phase-header">
                     <div class="phase-number">2</div>
@@ -421,7 +453,6 @@
                 </div>
             </div>
 
-            <!-- Phase 3 -->
             <div class="phase">
                 <div class="phase-header">
                     <div class="phase-number">3</div>
@@ -468,7 +499,6 @@
                 </div>
             </div>
 
-            <!-- Phase 4 -->
             <div class="phase">
                 <div class="phase-header">
                     <div class="phase-number">4</div>
